@@ -7,9 +7,22 @@ public class Building : MonoBehaviour
     // the dimensions of the building
     Vector2 dimensions;
 
-    // whether or not the building is currently running
-    [SerializeField] bool running;
+    // the next upgrade of the building -PLACEHOLDER UNTIL A PROPER SYSTEM IS SET UP-
+    [SerializeField] Building upgrade;
 
+    // whether or not the building is currently running
+    [SerializeField] bool running = true;
+
+    // the amount of workers needed to keep the building operational
+    [SerializeField] int workers = 1;
+
+    public bool Running // running property
+    {
+        get { return running; }
+        set { running = value; }
+    }
+
+    // key for the following arrays: [food, water, gold, wood, rock, metal]
     // the building cost for each material
     [SerializeField] int[] buildingCosts = new int[6];
 
@@ -35,7 +48,6 @@ public class Building : MonoBehaviour
         return hourlyCosts;
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +57,6 @@ public class Building : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+     
     }
 }
