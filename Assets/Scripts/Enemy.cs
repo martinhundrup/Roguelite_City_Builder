@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    // -- COMPONENTS -- //
+    #region STATS
 
     // -- STATS -- //
 
@@ -27,6 +27,10 @@ public abstract class Enemy : MonoBehaviour
     /// The movement speed of this enemy.
     /// </summary>
     [SerializeField] private float speed = 0f;
+
+    #endregion
+
+    #region PROPERTIES
 
     // -- PROPERTIES -- //
 
@@ -65,6 +69,30 @@ public abstract class Enemy : MonoBehaviour
         set { speed = value; }
     }
 
+    #endregion
+
+    #region UNITY CALLBACKS
+
+    /// <summary>
+    /// Called once at beginning of scene.
+    /// </summary>
+    void Start()
+    {
+
+    }
+
+    /// <summary>
+    /// Called once a frame. Varies with framerate.
+    /// </summary>
+    void Update()
+    {
+
+    }
+
+    #endregion
+
+    #region METHODS
+
     // -- CONSTRUCTORS -- //
 
     /// <summary>
@@ -80,15 +108,5 @@ public abstract class Enemy : MonoBehaviour
         speed = nSpeed;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }

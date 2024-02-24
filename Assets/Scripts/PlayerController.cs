@@ -4,18 +4,79 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region COMPONENTS
 
     // -- COMPONENTS -- //
-    private Rigidbody2D rigidBody; // holds the reference to the player's Rigidbody2D component
-    private SpriteRenderer spriteRenderer; // holds the reference to the player's Sprite Renderer component
-    private Animator animator; // holds the reference to the player's Animator component
+
+    /// <summary>
+    /// Holds the reference to the player's Rigidbody2D component.
+    /// </summary>
+    private Rigidbody2D rigidBody;
+
+    /// <summary>
+    /// Holds the reference to the player's Sprite Renderer component.
+    /// </summary>
+    private SpriteRenderer spriteRenderer;
+
+    /// <summary>
+    /// Holds the reference to the player's Animator component
+    /// </summary>
+    private Animator animator;
+
+    #endregion
+
+    #region STATS
 
     // -- STATS -- //
-    [SerializeField] private float movementSpeed; // the value to multiply the movement vector by; the speed of the play
-    [SerializeField] private float attackCooldown = 0f; // the time to wait in between attacks
-    private float attackCooldownProgress; // the time that has occurred since the last attack
 
+    /// <summary>
+    /// The value to multiply the movement vector by; the speed of the player.
+    /// </summary>
+    [SerializeField] private float movementSpeed;
 
+    /// <summary>
+    /// The time to wait in between attacks.
+    /// </summary>
+    [SerializeField] private float attackCooldown = 0f;
+
+    /// <summary>
+    /// The time elapsed since the last attack.
+    /// </summary>
+    private float attackCooldownProgress;
+
+    #endregion
+
+    #region PROPERTIES
+
+    // -- PROPERTIES -- //
+
+    /// <summary>
+    /// Gets the movement speed of the player.
+    /// </summary>
+    public float MovementSpeed
+    {
+        get { return movementSpeed; }
+    }
+
+    /// <summary>
+    /// Gets the time to wait in between attacks.
+    /// </summary>
+    public float AttackCooldown
+    {
+        get { return attackCooldown; }
+    }
+
+    /// <summary>
+    /// Gets the time elapsed since the last attack.
+    /// </summary>
+    public float AttackCooldownProgress
+    {
+        get { return attackCooldownProgress; }
+    }
+
+    #endregion
+
+    #region UNITY CALLBACKS
 
     /// <summary>
     /// Called once at beginning of scene.
@@ -28,7 +89,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Called once a frame.
+    /// Called once a frame. Varies with framerate.
     /// </summary>
     private void Update()
     {
@@ -36,6 +97,9 @@ public class PlayerController : MonoBehaviour
         Attack();
     }
 
+    #endregion
+
+    #region METHODS
 
     /// <summary>
     /// Handles movement related input and rigidbody forces responsible for movement
@@ -94,4 +158,6 @@ public class PlayerController : MonoBehaviour
             attackCooldownProgress = 0f;
         }
     }
+
+    #endregion
 }
