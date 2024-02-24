@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rigidBody; // holds the reference to the player's Rigidbody2D component
-    SpriteRenderer spriteRenderer; // holds the reference to the player's Sprite Renderer component
-    Animator animator; // holds the reference to the player's Animator component
 
+    // -- COMPONENTS -- //
+    private Rigidbody2D rigidBody; // holds the reference to the player's Rigidbody2D component
+    private SpriteRenderer spriteRenderer; // holds the reference to the player's Sprite Renderer component
+    private Animator animator; // holds the reference to the player's Animator component
 
-    [SerializeField] float movementSpeed; // the value to multiply the movement vector by; the speed of the play
+    // -- STATS -- //
+    [SerializeField] private float movementSpeed; // the value to multiply the movement vector by; the speed of the play
+    [SerializeField] private float attackCooldown = 0f; // the time to wait in between attacks
+    private float attackCooldownProgress; // the time that has occurred since the last attack
 
 
 
@@ -29,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Movement();
+        Attack();
     }
 
 
@@ -69,5 +74,24 @@ public class PlayerController : MonoBehaviour
 
         // set the rigidbody velocity to the movement vector
         rigidBody.velocity = movement_vector * movementSpeed;
+    }
+
+    /// <summary>
+    /// Handles attacking related input and actions.
+    /// </summary>
+    private void Attack()
+    {
+        // increment time since last attack
+        attackCooldownProgress += Time.deltaTime;
+
+        // user pressed the action button and they have waited enough time to attack
+        if (Input.GetButtonDown("Action") && attackCooldownProgress >= attackCooldown)
+        {
+            // temporary action to take
+            Debug.Log("attack");
+
+            // reset time waited since last attack
+            attackCooldownProgress = 0f;
+        }
     }
 }
