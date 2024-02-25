@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour
         attackCooldownProgress += Time.deltaTime;
 
         // user pressed the action button and they have waited enough time to attack
-        if (Input.GetButtonDown("Action") && attackCooldownProgress >= attackCooldown)
+        if (Input.GetButton("Action") && attackCooldownProgress >= attackCooldown)
         {
             // activate hitbox
             StartCoroutine(AttackHitbox());

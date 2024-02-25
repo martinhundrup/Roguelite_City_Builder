@@ -4,38 +4,52 @@ using UnityEngine;
 
 public class CameraFolllower : MonoBehaviour
 {
-    // target will store the data of the object we want to move towards
-    // we use serialize field so we can set this object from the editor
-    [SerializeField] Transform target;
+    /// <summary>
+    /// The transform of the game object the camera will target.
+    /// </summary>
+    [SerializeField] private Transform target;
 
-    // offset is the modifier by which we look at our target
-    // example: if we wanted to look right of our target, we'd set x > 0
-    [SerializeField] Vector3 offset;
+    /// <summary>
+    /// The offset at which we look at the target.
+    /// </summary>
+    [SerializeField] private Vector3 offset;
 
-    // this is the amount of smoothing (also called damping) applied to our camera
-    // a smoothness of 0 means the camera follows the target exactly
-    [SerializeField] float smoothness;
+    /// <summary>
+    /// The damping value to follow the target with. Smaller values result in closer following.
+    /// </summary>
+    [SerializeField] private float smoothness;
 
-    // we are creating a shortcut variable to access a 0 vector (0, 0, 0)
-    Vector3 velocity = Vector3.zero;
+    /// <summary>
+    /// The 3D zero vector as a variable.
+    /// </summary>
+    private Vector3 zeroVector = Vector3.zero;
 
-    // this is the final position to which we move (after the offset)
-    Vector3 targetPos;
+    /// <summary>
+    /// The final position to which the camera moves after the offset.
+    /// </summary>
+    private Vector3 targetPos;
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Called once a frame. Varies with framerate.
+    /// </summary>
+    private void Update()
     {
-        UpdatePosition();
+        if (transform.position != target.position) // only moves the object if it's not at the target already
+        {
+            UpdatePosition();
+        }
     }
 
-    // we will call this each frame to move the camera
+    /// <summary>
+    /// Updates the camera's position towards the target.
+    /// </summary>
     private void UpdatePosition()
     {
         // apply any offset
         targetPos = target.position + offset;
 
         // smooth the position to a new variable
-        Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothness);
+        Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, targetPos, ref zeroVector, smoothness);
 
         // set our position to the smoothed position
         transform.position = smoothedPosition;
